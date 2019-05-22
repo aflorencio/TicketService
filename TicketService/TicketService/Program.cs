@@ -26,7 +26,7 @@ namespace TicketService
                     {
                         case "start":
                             Console.WriteLine("Starting service...");
-                            serverStandar.Port = "5000";
+                            serverStandar.Port = "5007";
                             serverStandar.Host = "*";
                             serverStandar.Start();
                             Console.Title = "[ON]  " + nameService + " " + v;
@@ -39,7 +39,7 @@ namespace TicketService
 
                             using (var server = new RestServer())
                             {
-                                server.Port = "5000";
+                                server.Port = "5007";
                                 server.Host = "*";
                                 server.LogToConsole().Start();
                                 Console.Title = "[ON]  " + nameService + " " + v;
