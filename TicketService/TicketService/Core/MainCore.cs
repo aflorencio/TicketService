@@ -12,11 +12,15 @@ namespace TicketService
 {
     class MainCore
     {
+        public IMongoCRUD<DMModel> db;
+        public MainCore(string server, string database) {
+            IMongoCRUD<DMModel> db = new MongoCRUD<DMModel>(server, database);
+        }
+
         #region CREATE
 
         public void Create(DMModel data)
         {
-            IMongoCRUD<DMModel> db = new MongoCRUD<DMModel>("mongodb://51.83.73.69:27017", "TicketService");
             db.Create(data);
         }
 
@@ -25,8 +29,6 @@ namespace TicketService
         #region READ
         public List<DMModel> ReadAll()
         {
-            IMongoCRUD<MTicket> db = new MongoCRUD<MTicket>("mongodb://51.83.73.69:27017", "TicketService");
-
             BsonDocument filter = new BsonDocument();
             filter.Add("_id", new BsonDocument()
                     .Add("$exists", new BsonBoolean(true))
@@ -40,11 +42,8 @@ namespace TicketService
         // FALTA ES BUSCAR POR CAMPO? ESTA EN QUERY       
 
         public DMModel ReadId(string id)
-        {
-            IMongoCRUD<MTicket> db = new MongoCRUD<MTicket>("mongodb://51.83.73.69:27017", "TicketService");
-            
+        {         
             return db.Get(ObjectId.Parse(id));
-
         }
 
         //public List<DMModel> ReadValue(string fieldName, string fieldValue)
@@ -55,22 +54,14 @@ namespace TicketService
         #endregion
 
         #region UPDATE
-        public void Update(string id, MTicket data)
+        public void Update(string id, DMModel data)
         {
-            IMongoCRUD<DMModel> db = new MongoCRUD<DMModel>("mongodb://51.83.73.69:27017", "TicketService");
             DMModel document = new DMModel();
 
             document = db.Get(ObjectId.Parse(id));
             document = data;
 
             db.Update(data);
-
-            //document.SomeProperty = "Something Modificado";
-
-
-            //document.urls.Add("ur3333");
-            //client.Update(document);
-
 
         }
 
