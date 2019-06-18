@@ -16,11 +16,12 @@ namespace TicketService
     [RestResource]
     class TicketController
     {
+        MainCore _ = new MainCore("mongodb://51.83.73.69:27017", "TicketService");
+
         #region GET
         [RestRoute(HttpMethod = HttpMethod.GET, PathInfo = "/api/ticket/all")]
         public IHttpContext ReadAllContacto(IHttpContext context)
         {
-            MainCore _ = new MainCore();
 
             var data = _.ReadAll();
 
@@ -33,7 +34,6 @@ namespace TicketService
         [RestRoute(HttpMethod = HttpMethod.GET, PathInfo = "/api/ticket/one")]
         public IHttpContext ReadOneContacto(IHttpContext context)
         {
-            MainCore _ = new MainCore();
 
             var id = context.Request.QueryString["id"] ?? "what?"; //Si no id dara error
             var data = _.ReadId(id);
@@ -50,7 +50,6 @@ namespace TicketService
         [RestRoute(HttpMethod = HttpMethod.POST, PathInfo = "/api/ticket/add")]
         public IHttpContext AddContacto(IHttpContext context)
         {
-            MainCore _ = new MainCore();
 
             string jsonRAW = context.Request.Payload;
             dynamic dataId = JsonConvert.DeserializeObject<object>(jsonRAW);
@@ -82,8 +81,6 @@ namespace TicketService
         [RestRoute(HttpMethod = HttpMethod.PUT, PathInfo = "/api/ticket/update")]
         public IHttpContext UpdateContacto(IHttpContext context)
         {
-
-            MainCore _ = new MainCore();
 
             string jsonRAW = context.Request.Payload;
             var id = context.Request.QueryString["id"] ?? "what?";

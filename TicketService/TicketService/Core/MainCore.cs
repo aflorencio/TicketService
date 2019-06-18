@@ -14,7 +14,7 @@ namespace TicketService
     {
         public IMongoCRUD<DMModel> db;
         public MainCore(string server, string database) {
-            IMongoCRUD<DMModel> db = new MongoCRUD<DMModel>(server, database);
+            db = new MongoCRUD<DMModel>(server, database);
         }
 
         #region CREATE
